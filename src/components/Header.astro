@@ -1,0 +1,83 @@
+---
+import HeaderLink from './HeaderLink.astro';
+import ThemeIcon from './ThemeIcon.astro';
+
+const menu = [
+	{
+		link: '/about/',
+		label: 'About'
+	},
+	{
+		link: '/posts/',
+		label: 'Posts'
+	},
+	{
+		link: '/projects/',
+		label: 'Projects'
+	},
+	{
+		link: '/tags/',
+		label: 'Tags'
+	}
+];
+---
+
+<header id='site-header' class:list={['w-full z-20 absolute']}>
+	<nav
+		class='flex bg-zinc-200 dark:bg-zinc-800 text-gray-700 dark:text-white justify-between items-center px-14 py-4 max-sm:px-5 max-sm:py-6 max-w-7xl mx-auto'
+	>
+		<a href='/' class='flex text-2xl font-mono items-center space-x-1'>
+			<svg
+				xmlns='http://www.w3.org/2000/svg'
+				width='30'
+				height='30'
+				viewBox='0 0 24 24'
+				fill='none'
+				stroke='currentColor'
+				stroke-width='2'
+				stroke-linecap='round'
+				stroke-linejoin='round'
+				class='lucide lucide-rocket'
+				><path d='M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z'></path><path
+					d='m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z'></path><path
+					d='M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0'></path><path d='M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5'></path></svg
+			>
+			<p class='text-2xl font-mono'></p>
+			<b>CodeSplorer</b>
+		</a>
+		<div class='flex'>
+			<ThemeIcon />
+		</div>
+	</nav>
+	<div class='fixed top-2 max-w-full px-3 left-1/2 -translate-x-1/2 z-[999]'>
+		<div class='flex px-2.5 bg-white/90 dark:bg-zinc-900/75 backdrop-blur-md leading-tight rounded-xl border dark:border-zinc-700'>
+			<div class='px-2.5 text-sm'>
+				<HeaderLink class='py-3 flex items-center' href='/' aria-label='Home'>
+					<svg
+						xmlns='http://www.w3.org/2000/svg'
+						width='20'
+						height='20'
+						viewBox='0 0 24 24'
+						fill='none'
+						stroke='currentColor'
+						stroke-width='1.7'
+						stroke-linecap='round'
+						stroke-linejoin='round'
+						class='lucide lucide-house'
+						><path d='M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8'></path><path
+							d='M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'></path></svg
+					>
+				</HeaderLink>
+			</div>
+			{
+				menu.map((item) => (
+					<div class='px-4 text-base'>
+						<HeaderLink class='py-2.5 flex items-center' href={item.link}>
+							{item.label}
+						</HeaderLink>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</header>
