@@ -1,6 +1,7 @@
 ---
 import HeaderLink from './HeaderLink.astro';
-import ThemeIcon from './ThemeIcon.astro';
+import ButtonComp from './ButtonComp.astro';
+import GithubButton from './GithubButton.astro';
 
 const menu = [
 	{
@@ -24,9 +25,9 @@ const menu = [
 
 <header id='site-header' class:list={['w-full z-20 absolute']}>
 	<nav
-		class='flex bg-zinc-200 dark:bg-zinc-800 text-gray-700 dark:text-white justify-between items-center px-14 py-4 max-sm:px-5 max-sm:py-6 max-w-7xl mx-auto'
+		class='flex bg-white dark:bg-zinc-800 text-gray-700 dark:text-white px-2 justify-between items-center py-3 max-sm:px-5 max-sm:py-6 max-w-5xl mx-auto'
 	>
-		<a href='/' class='flex text-2xl font-mono items-center space-x-1'>
+		<a href='/' class='flex text-2xl font-mono items-center space-x-2'>
 			<svg
 				xmlns='http://www.w3.org/2000/svg'
 				width='30'
@@ -42,15 +43,17 @@ const menu = [
 					d='m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z'></path><path
 					d='M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0'></path><path d='M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5'></path></svg
 			>
-			<p class='text-2xl font-mono'></p>
-			<b>CodeSplorer</b>
+			<p class='font-mono'><b>CodeSplorer</b></p>
 		</a>
-		<div class='flex'>
-			<ThemeIcon />
+		<div class='flex space-x-5'>	
+				<ButtonComp />
+				<GithubButton />
 		</div>
 	</nav>
 	<div class='fixed top-2 max-w-full px-3 left-1/2 -translate-x-1/2 z-[999]'>
-		<div class='flex px-2.5 bg-white/90 dark:bg-zinc-900/75 backdrop-blur-md leading-tight rounded-xl border dark:border-zinc-700'>
+		<div
+			class='flex px-2.5 bg-zinc-200/55 dark:bg-zinc-900/75 backdrop-blur-md leading-tight rounded-xl border border-zinc-300 dark:border-zinc-500'
+		>
 			<div class='px-2.5 text-sm'>
 				<HeaderLink class='py-3 flex items-center' href='/' aria-label='Home'>
 					<svg
