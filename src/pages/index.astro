@@ -1,9 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import Post from '../components/Post.astro';
+
+type BlogPost = CollectionEntry<'posts'>;
+
+const posts = (await getCollection('posts')).sort((a: BlogPost, b: BlogPost) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 5);
 ---
 
 <Layout title='Welcome to Astro.'>
-	<div class='w-full h-full max-w-7xl bg-white dark:bg-zinc-800 text-gray-700 dark:text-white bg-ston-300 mx-auto px-14 py-10'>
-		<h1 class='text-2xl'>Home Page</h1>
+	<div class='w-full max-w-6xl bg-white dark:bg-zinc-400 text-gray-700 dark:text-white mx-auto px-14 py-10'>
+		<h1 class='text-2xl'>Latest Posts</h1>
+		<div>
+			{posts.map((post: BlogPost) => <Post post={post} />)}
+		</div>
 	</div>
 </Layout>
