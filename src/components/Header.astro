@@ -5,12 +5,8 @@ import GithubButton from './GithubButton.astro';
 
 const menu = [
 	{
-		link: '/about/',
-		label: 'About'
-	},
-	{
-		link: '/posts/',
-		label: 'Posts'
+		link: '/blogs/',
+		label: 'Blogs'
 	},
 	{
 		link: '/projects/',
@@ -19,12 +15,16 @@ const menu = [
 	{
 		link: '/tags/',
 		label: 'Tags'
+	},
+	{
+		link: '/about/',
+		label: 'About'
 	}
 ];
 ---
 
 <header id='site-header' class:list={['w-full z-20 absolute']}>
-	<nav class='flex bg-white dark:bg-zinc-800 text-gray-700 dark:text-white px-3 justify-between items-center py-3 max-w-6xl mx-auto'>
+	<nav class='flex bg-white dark:bg-red-400 text-gray-700 dark:text-white px-3 justify-between items-center py-3 max-w-6xl mx-auto'>
 		<a href='/' class='flex text-2xl md:text-2xl font-mono items-center space-x-2'>
 			<svg
 				xmlns='http://www.w3.org/2000/svg'
