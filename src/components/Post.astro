@@ -8,11 +8,12 @@ type Props = {
 const { post } = Astro.props;
 ---
 
-<article class='bg-white rounded-lg overflow-hidden shadow-lg text-black'>
-	<Image src={post.data.image} alt={post.data.title} class='hover:scale-[1.03] transition duration-300 w-full h-72' />
+<article class='overflow-hidden rounded-xl text-black dark:text-zinc-200'>
+	<Image src={post.data.image} alt={post.data.title} class='hover:scale-[1.03] p-2 rounded-2xl transition duration-300 h-56 md:h-72' />
+
 	<div class='p-6'>
 		<div class='flex flex-row items-center mb-4'>
-			<p class='text-gray-500 text-sm'>
+			<p class='text-gray-500 text-sm font-mono'>
 				{
 					post.data.date.toLocaleDateString('en-us', {
 						year: 'numeric',
@@ -22,6 +23,6 @@ const { post } = Astro.props;
 				}
 			</p>
 		</div>
-		<h2 class='text-2xl font-bold mb-2'>{post.data.title}</h2>
+		<h2 class='text-2xl font-bold mb-2 font-mono'>{post.data.title}</h2>
 	</div>
 </article>

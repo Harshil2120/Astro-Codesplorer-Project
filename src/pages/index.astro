@@ -3,17 +3,34 @@ import Layout from '../layouts/Layout.astro';
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import Post from '../components/Post.astro';
+import Project from '../components/Project.astro';
 
 type BlogPost = CollectionEntry<'posts'>;
+type ProjectDetail = CollectionEntry<'projects'>;
 
 const posts = (await getCollection('posts')).sort((a: BlogPost, b: BlogPost) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 4);
+const projects = (await getCollection('projects')).slice(0, 2);
 ---
 
 <Layout title='Welcome to Astro.'>
-	<div class='max-w-5xl bg-white dark:bg-zinc-400 text-gray-700 dark:text-white mx-auto p-4'>
-		<h1 class='text-xl'>Latest Posts</h1>
-		<div class='grid grid-cols-1 md:grid-cols-2  gap-8'>
+	<div class='max-w-5xl bg-white dark:bg-zinc-800 text-gray-700 dark:text-white mx-auto p-4'>
+		<div class='flex justify-between gap-2 border-b py-2 dark:border-b-zinc-700'>
+			<h2 class='font-mono text-md p-1 rounded-md'>Recent Blogs</h2>
+			<a href='/posts/' class='inline-block border text-sm dark:border-zinc-600 p-2 rounded-md text-zinc-950 dark:text-white font-mono'
+				>All blogs</a
+			>
+		</div>
+		<div class='grid grid-cols-1 md:grid-cols-2 gap-8'>
 			{posts.map((post: BlogPost) => <Post post={post} />)}
+		</div>
+		<div class='flex justify-between gap-2 border-b py-2 dark:border-b-zinc-700'>
+			<h2 class='font-mono text-md p-1 rounded-md'>Recent Projects</h2>
+			<a href='/posts/' class='inline-block border text-sm dark:border-zinc-600 p-2 rounded-md text-zinc-950 dark:text-white font-mono'
+				>All projects</a
+			>
+		</div>
+		<div class='grid grid-cols-1 md:grid-cols-2 gap-8'>
+			{projects.map((project: ProjectDetail) => <Project project={project} />)}
 		</div>
 	</div>
 </Layout>
