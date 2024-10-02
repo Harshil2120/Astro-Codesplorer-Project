@@ -1,5 +1,7 @@
 ---
 import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ScrollToTopButton from '../components/ScrollToTopButton';
 interface Props {
 	title: string;
 	description?: string;
@@ -26,6 +28,8 @@ const { title, description = 'Hello there', image = './images/band.jpg' } = Astr
 		<Header />
 		<div class='pt-20'>
 			<slot />
+			<Footer />
+			<ScrollToTopButton client:load />
 		</div>
 	</body>
 </html>
