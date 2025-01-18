@@ -3,7 +3,7 @@ author: dwight-schrute
 categories: ["studio tips"]
 date: 'Jul 22 2022'
 featured: false
-image: ./images/photoshoot.jpg
+image: ./images/kafka.jpg
 title: Behind-the-scenes with our artists
 ---
 

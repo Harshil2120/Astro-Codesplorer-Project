@@ -6,9 +6,11 @@ import react from '@astrojs/react';
 
 import cloudflare from '@astrojs/cloudflare';
 
+import tunnel from 'astro-tunnel';
+
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), react()],
+  integrations: [tailwind(), react(), tunnel()],
   output: 'server',
   adapter: cloudflare()
 });

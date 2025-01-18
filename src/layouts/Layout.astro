@@ -24,9 +24,9 @@ const { title, description = 'Hello there', image = './images/band.jpg' } = Astr
 		<ViewTransitions />
 	</head>
 
-	<body class='bg-white dark:bg-zinc-900'>
+	<body class='bg-zinc-100 dark:bg-zinc-900'>
 		<Header />
-		<div class='pt-20'>
+		<div class='pt-20 space-y-4'>
 			<slot />
 			<Footer />
 			<ScrollToTopButton client:load />
