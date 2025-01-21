@@ -1,0 +1,92 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content';
+import Prose from '../components/Prose.astro';
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import TableOfContent from '../components/TableOfContent.astro';
+
+export const prerender = true;
+
+const slugify = (input: string) => {
+	if (!input) return '';
+
+	// make lower case and trim
+	var slug = input.toLowerCase().trim();
+
+	// remove accents from charaters
+	slug = slug.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+	// replace invalid chars with spaces
+	slug = slug.replace(/[^a-z0-9\s-]/g, ' ').trim();
+
+	// replace multiple spaces or hyphens with a single hyphen
+	slug = slug.replace(/[\s-]+/g, '-');
+
+	return slug;
+};
+export async function getStaticPaths() {
+	const posts = await getCollection('posts');
+	return posts.map((post: any) => ({
+		params: { slug: post.slug },
+		props: post
+	}));
+}
+type Props = CollectionEntry<'posts'>;
+const post = Astro.props;
+const {
+	data: { author, categories, date, image, title }
+} = post;
+const { Content, headings } = await post.render();
+---
+
+<Layout title='Welcome to Astro.'>
+	<div
+		class='max-w-5xl space-x-10 flex dark:bg-zinc-800 bg-zinc-300/55 shadow-lg text-gray-700 dark:text-white mx-auto px-6 py-2 rounded-xl'
+	>
+		<main class=''>
+			<article>
+				<div class="px-3 py-2">
+					<h1 class=''>{title}</h1>
+					<div
+						class='text-sm font-[500] mt-2 sm:mt-0 py-1 md:text-right flex flex-col sm:flex-row gap-3 sm:justify-between sm:items-center'
+					>
+						{
+							(
+								<div class='flex gap-2'>
+									{(categories || [])?.map((category: string) => (
+										<a
+											class='border border-zinc-300 dark:border-zinc-700 rounded-2xl
+						  text-sm text-zinc-700 dark:text-zinc-300 no-underline px-2 py-0.5
+						  transition-all duration-700
+						hover:border-zinc-700 dark:hover:border-zinc-300'
+											href={`/tags/${slugify(category)}`}>
+											{category}
+										</a>
+									))}
+								</div>
+							)
+						}
+						<div>
+							{
+								post.data.date.toLocaleDateString('en-us', {
+									year: 'numeric',
+									month: 'long',
+									day: '2-digit'
+								})
+							}
+						</div>
+					</div>
+				</div>
+				<div class='overflow-hidden'>
+					{image && <Image class='rounded-2xl' src={image} alt={title} loading='eager' />}
+				</div>
+				<Prose>
+					<Content />
+				</Prose>
+			</article>
+		</main>
+		<div class='shrink-0 w-[280px] hidden md:block'>
+			<TableOfContent headings={headings} />
+		</div>
+	</div>
+</Layout>
