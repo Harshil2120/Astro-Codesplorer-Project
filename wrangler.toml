@@ -1,0 +1,9 @@
+name = "codesplorer-blog-project"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[env.production]
+name = "codesplorer-blog-project"
+
+[env.preview]
+name = "codesplorer-blog-project-preview"
