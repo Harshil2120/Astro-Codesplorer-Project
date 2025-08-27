@@ -3,27 +3,10 @@ import { type CollectionEntry, getCollection } from 'astro:content';
 import Prose from '../components/Prose.astro';
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
+import { slugify } from '../scripts/utils.ts';
 import TableOfContent from '../components/TableOfContent.astro';
 
 export const prerender = true;
-
-const slugify = (input: string) => {
-	if (!input) return '';
-
-	// make lower case and trim
-	var slug = input.toLowerCase().trim();
-
-	// remove accents from charaters
-	slug = slug.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-
-	// replace invalid chars with spaces
-	slug = slug.replace(/[^a-z0-9\s-]/g, ' ').trim();
-
-	// replace multiple spaces or hyphens with a single hyphen
-	slug = slug.replace(/[\s-]+/g, '-');
-
-	return slug;
-};
 export async function getStaticPaths() {
 	const posts = await getCollection('posts');
 	return posts.map((post: any) => ({
@@ -34,19 +17,22 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<'posts'>;
 const post = Astro.props;
 const {
-	data: { author, categories, date, image, title }
+	data: { categories, image, title }
 } = post;
 const { Content, headings } = await post.render();
 ---
 
 <Layout title='Welcome to Astro.'>
 	<div
-		class='max-w-5xl space-x-10 flex dark:bg-zinc-800 bg-zinc-300/55 shadow-lg text-gray-700 dark:text-white mx-auto px-6 py-2 rounded-xl'
+		class='max-w-5xl md:space-x-3 flex border-zinc-600 border-[1px] dark:bg-zinc-700/40 bg-zinc-100/85 text-gray-700 dark:text-white mx-auto px-2 py-2 rounded-xl'
 	>
-		<main class=''>
+		<div class='w-3/12 pt-4 hidden md:block'>
+			<TableOfContent headings={headings} />
+		</div>
+		<main class='w-full md:w-9/12 p-6'>
 			<article>
-				<div class="px-3 py-2">
-					<h1 class=''>{title}</h1>
+				<div class='px-1 py-3 space-y-2'>
+					<h1 class='text-3xl font-mono font-medium'>{title}</h1>
 					<div
 						class='text-sm font-[500] mt-2 sm:mt-0 py-1 md:text-right flex flex-col sm:flex-row gap-3 sm:justify-between sm:items-center'
 					>
@@ -54,14 +40,11 @@ const { Content, headings } = await post.render();
 							(
 								<div class='flex gap-2'>
 									{(categories || [])?.map((category: string) => (
-										<a
-											class='border border-zinc-300 dark:border-zinc-700 rounded-2xl
-						  text-sm text-zinc-700 dark:text-zinc-300 no-underline px-2 py-0.5
-						  transition-all duration-700
-						hover:border-zinc-700 dark:hover:border-zinc-300'
-											href={`/tags/${slugify(category)}`}>
+										<div
+											class='border border-zinc-400 dark:border-zinc-700 rounded-2xl
+						  text-sm  px-2 py-0.5'>
 											{category}
-										</a>
+										</div>
 									))}
 								</div>
 							)
@@ -85,8 +68,47 @@ const { Content, headings } = await post.render();
 				</Prose>
 			</article>
 		</main>
-		<div class='shrink-0 w-[280px] hidden md:block'>
-			<TableOfContent headings={headings} />
-		</div>
 	</div>
 </Layout>
+
+<script async is:inline>
+	function observeToc() {
+		const anchors = document.querySelectorAll('.prose h2[id], .prose h3[id]');
+		const links = document.querySelectorAll('nav.toc ul li a');
+
+		if (!anchors.length || !links.length) return;
+
+		let scrollTop = window.scrollY;
+
+		// Reset all links
+		for (const link of links) {
+			link.classList.add('bg-transparent');
+			link.classList.remove('bg-zinc-700');
+		}
+
+		// Find the last matching anchor
+		for (let i = anchors.length - 1; i >= 0; i--) {
+			if (scrollTop > anchors[i].offsetTop - 500) {
+				links[i].classList.remove('bg-transparent');
+				links[i].classList.add('bg-zinc-700');
+				break;
+			}
+		}
+	}
+
+	function initTocObserver() {
+		observeToc();
+
+		window.removeEventListener('scroll', observeToc);
+		window.removeEventListener('hashchange', observeToc);
+
+		window.addEventListener('scroll', observeToc);
+		window.addEventListener('hashchange', observeToc);
+	}
+
+	// Run when the script loads
+	initTocObserver();
+
+	// Reinitialize after Astro navigates (if using client-side navigation)
+	document.addEventListener('astro:after-swap', initTocObserver);
+</script>

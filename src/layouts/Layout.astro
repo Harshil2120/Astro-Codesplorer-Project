@@ -1,14 +1,15 @@
 ---
-import Header from '../components/Header.astro';
+import NavBar from '../components/NavBar.astro';
 import Footer from '../components/Footer.astro';
 import ScrollToTopButton from '../components/ScrollToTopButton';
 interface Props {
 	title: string;
 	description?: string;
 	image?: string;
+	url?: string;
 }
 import { ViewTransitions } from 'astro:transitions';
-const { title, description = 'Hello there', image = './images/band.jpg' } = Astro.props;
+const { title, description = 'Hello there', image = './images/band.jpg', url = Astro.url.href } = Astro.props;
 ---
 
 <!doctype html>
@@ -19,13 +20,27 @@ const { title, description = 'Hello there', image = './images/band.jpg' } = Astr
 		<meta name='viewport' content='width=device-width' />
 		<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
 		<meta name='generator' content={Astro.generator} />
-		<meta property='og:image' content={image} />
+
+		<!-- Open Graph / Facebook -->
+		<meta property='og:type' content='article' />
+		<meta property='og:url' content={url} />
+		<meta property='og:title' content={title} />
+		<meta property='og:description' content={description} />
+		<meta property='og:image' content={new URL(image, Astro.url).href} />
+
+		<!-- Twitter -->
+		<meta name='twitter:card' content='summary_large_image' />
+		<meta name='twitter:url' content={url} />
+		<meta name='twitter:title' content={title} />
+		<meta name='twitter:description' content={description} />
+		<meta name='twitter:image' content={new URL(image, Astro.url).href} />
+
 		<title>{title}</title>
 		<ViewTransitions />
 	</head>
 
-	<body class='bg-zinc-100 dark:bg-zinc-900'>
-		<Header />
+	<body class='bg-zinc-200 dark:bg-black'>
+		<NavBar />
 		<div class='pt-20 space-y-4'>
 			<slot />
 			<Footer />

@@ -1,0 +1,54 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+type BlogPost = CollectionEntry<'posts'>;
+const { post }: Record<string, any> | { post: BlogPost } = Astro.props;
+const slugify = (input: string) => {
+	if (!input) return '';
+
+	// make lower case and trim
+	var slug = input.toLowerCase().trim();
+
+	// remove accents from charaters
+	slug = slug.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+	// replace invalid chars with spaces
+	slug = slug.replace(/[^a-z0-9\s-]/g, ' ').trim();
+
+	// replace multiple spaces or hyphens with a single hyphen
+	slug = slug.replace(/[\s-]+/g, '-');
+
+	return slug;
+};
+---
+
+<div
+	class='rounded-lg w-full h-52 sm:w-10/12 border-zinc-600 border-2 p-2 dark:bg-zinc-900 bg-zinc-100 m-2 flex flex-col sm:flex-row justify-between'
+>
+	<Image src={post.data.image} alt={post.data.title} class='rounded-lg w-full sm:w-72' />
+	<div class='space-y-6 p-4 flex-1'>
+		<div class='text-zinc-700 text-sm w-24 dark:text-zinc-300 shrink-0'>
+			{
+				post.data.date.toLocaleDateString('en-us', {
+					year: 'numeric',
+					month: 'long',
+					day: '2-digit'
+				})
+			}
+		</div>
+		<h3 class=''>
+			<a href={`/${post.slug}/`}>
+				{post.data.title}
+			</a>
+		</h3>
+		<div class='flex space-x-2'>
+			{
+				(post.data.categories || [])?.map((category: string) => (
+					<div class='px-3 py-1 text-sm font-mono text-zinc-900 dark:text-zinc-200 bg-zinc-300 dark:bg-zinc-800 rounded-full'>
+						{category}
+					</div>
+				))
+			}
+		</div>
+	</div>
+</div>

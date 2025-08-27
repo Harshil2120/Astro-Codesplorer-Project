@@ -1,7 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+/* src/styles/grid.css */
 
 .light-grid {
     background-image: linear-gradient(
