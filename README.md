@@ -93,6 +93,8 @@ npm run dev
 | `npm run build` | Build for production |
 | `npm run preview` | Preview production build |
 | `npm run deploy` | Deploy to Cloudflare Pages |
+| `npm run format` | Format code with Prettier |
+| `npm run type-check` | Check TypeScript types |
 
 ## 📝 Adding Content
 

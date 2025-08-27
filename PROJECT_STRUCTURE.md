@@ -13,7 +13,6 @@ codesplorer-blog-project/
 ├── tailwind.config.mjs     # Tailwind CSS configuration
 ├── tsconfig.json          # TypeScript configuration
 ├── package.json           # Dependencies and scripts
-├── .eslintrc.cjs         # ESLint configuration
 ├── .prettierrc           # Prettier configuration
 ├── .gitignore            # Git ignore rules
 ├── README.md             # Project documentation
@@ -171,11 +170,6 @@ assets/
 - TypeScript compiler options
 - Path mappings
 - Strict type checking settings
-
-### `.eslintrc.cjs`
-- Code linting rules
-- Astro, React, and TypeScript support
-- Accessibility guidelines
 
 ### `.prettierrc`
 - Code formatting rules
