@@ -11,7 +11,7 @@
     "deploy": "npm run build && wrangler pages deploy dist",
     "deploy:preview": "npm run build && wrangler pages deploy dist --env preview",
     "pages:deploy": "npm run build",
-    "pages:deploy:command": "npx wrangler deploy"
+    "pages:deploy:command": "npx wrangler pages deploy dist --project-name codesplorer-blog-project"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.3",
