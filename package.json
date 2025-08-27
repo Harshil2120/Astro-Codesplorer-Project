@@ -10,7 +10,8 @@
     "astro": "astro",
     "deploy": "npm run build && wrangler pages deploy dist",
     "deploy:preview": "npm run build && wrangler pages deploy dist --env preview",
-    "pages:deploy": "npm run build"
+    "pages:deploy": "npm run build",
+    "pages:deploy:command": "npx wrangler deploy"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.3",
