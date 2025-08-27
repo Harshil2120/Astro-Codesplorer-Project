@@ -1,54 +1,173 @@
-# Astro Starter Kit: Basics
+# CodeSplorer Blog
 
-```sh
-npm create astro@latest -- --template basics
+A modern, fast, and SEO-friendly personal blog built with Astro, featuring dark mode, interactive components, and a clean design.
+
+## 🚀 Features
+
+- **Static Site Generation** with Astro for optimal performance
+- **Interactive Islands** using React components where needed
+- **Dark/Light Mode** with persistent theme preference
+- **Content Collections** for type-safe blog posts and projects
+- **Responsive Design** with Tailwind CSS
+- **SEO Optimized** with proper meta tags and structured data
+- **View Transitions** for smooth page navigation
+- **Cloudflare Pages** deployment ready
+
+## 🏗️ Project Structure
+
+```
+src/
+├── components/
+│   ├── ui/                 # Reusable UI components
+│   │   ├── Button.astro
+│   │   └── ThemeToggle.astro
+│   ├── interactive/        # Interactive components (React)
+│   │   └── ScrollToTopButton.jsx
+│   ├── layout/            # Layout-specific components
+│   │   ├── Header.astro
+│   │   ├── Footer.astro
+│   │   └── NavBar.astro
+│   └── content/           # Content-specific components
+│       ├── Post.astro
+│       ├── Project.astro
+│       └── Card.astro
+├── content/
+│   ├── posts/            # Blog posts (Markdown)
+│   └── projects/         # Project showcases (Markdown)
+├── layouts/
+│   └── Layout.astro      # Main layout template
+├── pages/                # Astro pages (routes)
+├── lib/                  # Utility functions
+│   └── utils.ts
+├── types/                # TypeScript type definitions
+│   └── index.ts
+├── constants/            # Site configuration
+│   └── site.ts
+├── scripts/              # Client-side scripts
+│   └── themeToggle.js
+└── styles/               # Global styles
+    └── global.css
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+## 🛠️ Tech Stack
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+- **Framework**: [Astro](https://astro.build/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Interactive Components**: [React](https://reactjs.org/)
+- **Content**: [Markdown](https://www.markdownguide.org/) with [Content Collections](https://docs.astro.build/en/guides/content-collections/)
+- **Deployment**: [Cloudflare Pages](https://pages.cloudflare.com/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+## 🚀 Getting Started
 
-## 🚀 Project Structure
+### Prerequisites
 
-Inside of your Astro project, you'll see the following folders and files:
+- Node.js 18+ 
+- npm or yarn
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/codesplorer-blog-project.git
+cd codesplorer-blog-project
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+2. Install dependencies:
+```bash
+npm install
+```
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+3. Start the development server:
+```bash
+npm run dev
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+4. Open [http://localhost:4321](http://localhost:4321) in your browser.
 
-## 🧞 Commands
+## 📝 Available Scripts
 
-All commands are run from the root of the project, from a terminal:
+| Command | Action |
+| :------ | :----- |
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run preview` | Preview production build |
+| `npm run deploy` | Deploy to Cloudflare Pages |
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## 📝 Adding Content
 
-## 👀 Want to learn more?
+### Blog Posts
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Create new blog posts in `src/content/posts/`:
+
+```markdown
+---
+title: "Your Post Title"
+date: 2024-01-01
+author: "Your Name"
+categories: ["Technology", "Web Development"]
+image: "./images/your-image.jpg"
+---
+
+Your post content here...
+```
+
+### Projects
+
+Add project showcases in `src/content/projects/`:
+
+```markdown
+---
+title: "Project Name"
+date: 2024-01-01
+author: "Your Name"
+categories: ["Web Development", "React"]
+image: "./images/project-screenshot.jpg"
+---
+
+Project description and details...
+```
+
+## 🎨 Customization
+
+### Site Configuration
+
+Update `src/constants/site.ts` with your information:
+
+```typescript
+export const SITE_CONFIG = {
+  name: 'Your Blog Name',
+  description: 'Your blog description',
+  url: 'https://yourdomain.com',
+  author: 'Your Name',
+  // ... other config
+};
+```
+
+### Styling
+
+- Global styles: `src/styles/global.css`
+- Tailwind config: `tailwind.config.mjs`
+- Component-specific styles: Use Tailwind classes directly
+
+## 🚀 Deployment
+
+This project is configured for Cloudflare Pages deployment:
+
+1. Push your code to GitHub
+2. Connect your repository to Cloudflare Pages
+3. Set build command: `npm run build`
+4. Set build output directory: `dist`
+5. Deploy!
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📞 Support
+
+If you have any questions or need help, please open an issue on GitHub.
