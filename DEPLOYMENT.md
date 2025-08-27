@@ -59,6 +59,7 @@ This will open your browser to authenticate with Cloudflare.
    - **Build command**: `npm run build`
    - **Build output directory**: `dist`
    - **Root directory**: `/` (leave empty if project is in root)
+   - **Deploy command**: Leave empty (Cloudflare will use the build output)
 
 4. **Environment variables** (if needed):
    - Add any environment variables your app requires
@@ -77,6 +78,17 @@ This file configures your Cloudflare Pages project:
 Your Astro configuration is already set up for Cloudflare:
 - Uses `@astrojs/cloudflare` adapter
 - Output mode set to 'server' for SSR
+
+### public/_routes.json
+Routes configuration for Cloudflare Pages:
+- Handles all routes (`/*`)
+- Excludes static assets from server-side processing
+
+### public/_headers
+Performance and security headers:
+- Security headers for all pages
+- Long-term caching for static assets
+- Optimized cache policies for different file types
 
 ## Environment Variables
 
