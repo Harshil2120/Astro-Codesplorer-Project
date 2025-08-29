@@ -11,38 +11,39 @@ export async function getStaticPaths() {
 	const posts = await getCollection('posts');
 	return posts.map((post: any) => ({
 		params: { slug: post.slug },
-		props: post
+		props: post,
 	}));
 }
 type Props = CollectionEntry<'posts'>;
 const post = Astro.props;
 const {
-	data: { categories, image, title }
+	data: { categories, image, title },
 } = post;
 const { Content, headings } = await post.render();
 ---
 
-<Layout title='Welcome to Astro.'>
+<Layout title="Welcome to Astro.">
 	<div
-		class='max-w-5xl md:space-x-3 flex border-zinc-600 border-[1px] dark:bg-zinc-700/40 bg-zinc-100/85 text-gray-700 dark:text-white mx-auto px-2 py-2 rounded-xl'
+		class="max-w-5xl md:space-x-3 flex border-zinc-600 border-[1px] dark:bg-zinc-700/40 bg-zinc-100/85 text-gray-700 dark:text-white mx-auto px-2 py-2 rounded-xl"
 	>
-		<div class='w-3/12 pt-4 hidden md:block'>
+		<div class="w-3/12 pt-4 hidden md:block">
 			<TableOfContent headings={headings} />
 		</div>
-		<main class='w-full md:w-9/12 p-6'>
+		<main class="w-full md:w-9/12 p-6">
 			<article>
-				<div class='px-1 py-3 space-y-2'>
-					<h1 class='text-3xl font-mono font-medium'>{title}</h1>
+				<div class="px-1 py-3 space-y-2">
+					<h1 class="text-3xl font-mono font-medium">{title}</h1>
 					<div
-						class='text-sm font-[500] mt-2 sm:mt-0 py-1 md:text-right flex flex-col sm:flex-row gap-3 sm:justify-between sm:items-center'
+						class="text-sm font-[500] mt-2 sm:mt-0 py-1 md:text-right flex flex-col sm:flex-row gap-3 sm:justify-between sm:items-center"
 					>
 						{
 							(
-								<div class='flex gap-2'>
+								<div class="flex gap-2">
 									{(categories || [])?.map((category: string) => (
 										<div
-											class='border border-zinc-400 dark:border-zinc-700 rounded-2xl
-						  text-sm  px-2 py-0.5'>
+											class="border border-zinc-400 dark:border-zinc-700 rounded-2xl
+						  text-sm  px-2 py-0.5"
+										>
 											{category}
 										</div>
 									))}
@@ -54,14 +55,14 @@ const { Content, headings } = await post.render();
 								post.data.date.toLocaleDateString('en-us', {
 									year: 'numeric',
 									month: 'long',
-									day: '2-digit'
+									day: '2-digit',
 								})
 							}
 						</div>
 					</div>
 				</div>
-				<div class='overflow-hidden'>
-					{image && <Image class='rounded-2xl' src={image} alt={title} loading='eager' />}
+				<div class="overflow-hidden">
+					{image && <Image class="rounded-2xl" src={image} alt={title} loading="eager" />}
 				</div>
 				<Prose>
 					<Content />
@@ -83,14 +84,14 @@ const { Content, headings } = await post.render();
 		// Reset all links
 		for (const link of links) {
 			link.classList.add('bg-transparent');
-			link.classList.remove('bg-zinc-700');
+			link.classList.remove('dark:bg-zinc-700', 'bg-zinc-300');
 		}
 
 		// Find the last matching anchor
 		for (let i = anchors.length - 1; i >= 0; i--) {
 			if (scrollTop > anchors[i].offsetTop - 500) {
 				links[i].classList.remove('bg-transparent');
-				links[i].classList.add('bg-zinc-700');
+				links[i].classList.add('dark:bg-zinc-700', 'bg-zinc-300');
 				break;
 			}
 		}
