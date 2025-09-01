@@ -23,32 +23,36 @@ const slugify = (input: string) => {
 ---
 
 <div
-	class='rounded-lg w-full h-52 sm:w-10/12 border-zinc-600 border-2 p-2 dark:bg-zinc-900 bg-zinc-100 m-2 flex flex-col sm:flex-row justify-between'
+	class="rounded-lg w-full h-[14rem] sm:w-10/12 border border-zinc-400 p-2 dark:bg-zinc-900 bg-zinc-100 m-2 flex flex-col sm:flex-row"
 >
-	<Image src={post.data.image} alt={post.data.title} class='rounded-lg w-full sm:w-72' />
-	<div class='space-y-6 p-4 flex-1'>
-		<div class='text-zinc-700 text-sm w-24 dark:text-zinc-300 shrink-0'>
-			{
-				post.data.date.toLocaleDateString('en-us', {
-					year: 'numeric',
-					month: 'long',
-					day: '2-digit'
-				})
-			}
-		</div>
-		<h3 class=''>
+	<Image src={post.data.image} alt={post.data.title} class="rounded-lg w-full sm:w-72" />
+
+	<div class="p-4 flex flex-col">
+		<h3 class="font-mono text-xl">
 			<a href={`/${post.slug}/`}>
 				{post.data.title}
 			</a>
 		</h3>
-		<div class='flex space-x-2'>
-			{
-				(post.data.categories || [])?.map((category: string) => (
-					<div class='px-3 py-1 text-sm font-mono text-zinc-900 dark:text-zinc-200 bg-zinc-300 dark:bg-zinc-800 rounded-full'>
-						{category}
-					</div>
-				))
-			}
+
+		<div class="mt-auto flex items-center justify-between">
+			<div class="flex flex-wrap gap-2">
+				{
+					(post.data.categories || []).map((category: string) => (
+						<div class="px-3 py-1 text-sm font-mono text-zinc-900 dark:text-zinc-200 bg-zinc-300 dark:bg-zinc-800 rounded-full">
+							{category}
+						</div>
+					))
+				}
+			</div>
+			<div class="text-zinc-700 text-sm dark:text-zinc-300 shrink-0">
+				{
+					post.data.date.toLocaleDateString('en-us', {
+						year: 'numeric',
+						month: 'long',
+						day: '2-digit',
+					})
+				}
+			</div>
 		</div>
 	</div>
 </div>

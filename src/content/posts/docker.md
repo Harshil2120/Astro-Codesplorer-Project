@@ -7,411 +7,395 @@ image: ./images/docker_blue.png
 title: Docker Explained Simply from Images to Containers
 ---
 
-Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
+## What is Docker?
 
-## Headings
+Docker is a platform for developing, shipping, and running applications. It enables you to separate your applications from your infrastructure to deliver software quickly.  
 
-The following HTML `<h1>`—`<h6>` elements represent six levels of section headings. `<h1>` is the highest section level while `<h6>` is the lowest.
+Imagine you have an app that works perfectly on your computer, but when you try to run it on another computer, it breaks because something is missing (maybe incorrect version of a library or a dependency). Docker solves this problem by packaging your app with everything it needs (code, libraries, dependencies) into a **container (just like a container on a ship)**.  
 
-# H1
+This container runs the same way on any computer, whether it’s your laptop, a cloud server, or someone else’s machine.
 
-## H2
+Before we start using Docker, it is important to understand a few key concepts:
 
-### H3
+- Docker Images
+- Containers
+- Volumes
+- Networks
+- Dockerfiles
+- Docker Compose
+- Docker CLI
 
-#### H4
+## Docker Image
 
-##### H5
+A **Docker image** is a lightweight, standalone, and executable package that contains everything needed to run a piece of software.  
 
-###### H6
+It is like a **blueprint** for a **Docker container** and provides a predefined environment that ensures your application runs consistently across different machines.
 
-## Paragraph
+### Key Characteristics
+- ✅ **Immutable** – Cannot modify an image; changes create a new one.  
+- ✅ **Versioned** – Images have tags (`python:3.9`, `nginx:latest`).  
+- ✅ **Layered** – Each Dockerfile command adds a layer, optimizing storage.  
+- ✅ **Portable** – Runs consistently across any OS supporting Docker.  
+- ✅ **Shared** – Can be pushed/pulled from DockerHub or private registries.  
 
-Xerum, quo qui aut unt expliquam qui dolut labo. Aque venitatiusda cum, voluptionse latur sitiae dolessi aut parist aut dollo enim qui voluptate ma dolestendit peritin re plis aut quas inctum laceat est volestemque commosa as cus endigna tectur, offic to cor sequas etum rerum idem sintibus eiur? Quianimin porecus evelectur, cum que nis nust voloribus ratem aut omnimi, sitatur? Quiatem. Nam, omnis sum am facea corem alique molestrunt et eos evelece arcillit ut aut eos eos nus, sin conecerem erum fuga. Ri oditatquam, ad quibus unda veliamenimin cusam et facea ipsamus es exerum sitate dolores editium rerore eost, temped molorro ratiae volorro te reribus dolorer sperchicium faceata tiustia prat.
+### Useful Commands
+```docker
+# docker image build command which uses dockerfile to build image
+docker build -t my-app:latest .
 
-Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sapicia is sinveli squiatum, core et que aut hariosam ex eat.
+# list docker images
+docker images
 
-## Images
+# remove docker image
+docker rmi my-app:latest
 
-### Syntax
+# remove all unused images, including dangling and unreferenced ones
+docker image prune
 
-```markdown
-![Alt text](./full/or/relative/path/of/image)
+# tag existing image before pushing to dockerhub
+docker tag my-app:latest myrepo/my-app:v1
+
+# login to your dockerhub account on cli
+docker login
+
+# pull docker image from docker hub
+docker pull nginx:latest
+
+# push image to docker hub
+docker push myrepo/my-app:v1
 ```
 
-## Blockquotes
+---
 
-The blockquote element represents content that is quoted from another source, optionally with a citation which must be within a `footer` or `cite` element, and optionally with in-line changes such as annotations and abbreviations.
+## Docker Container
 
-### Blockquote without attribution
+A **Docker container** is a lightweight, portable, and isolated environment that runs an application along with all its dependencies. Containers are created from **images**.
 
-#### Syntax
+### Containers vs Virtual Machines
 
-```markdown
-> Tiam, ad mint andaepu dandae nostion secatur sequo quae.  
-> **Note** that you can use _Markdown syntax_ within a blockquote.
+| Feature | **Docker Container** | **Virtual Machine (VM)** |
+|---------|----------------------|--------------------------|
+| **Architecture** | Shares the host OS kernel | Runs a full OS with its own kernel |
+| **Startup Time** | Seconds | Minutes |
+| **Resource Usage** | Lightweight | Heavy |
+| **Isolation** | Process-level | Full OS-level |
+| **Performance** | Near-native | Slower |
+| **Portability** | High | Limited |
+| **Use Case** | Microservices, CI/CD | Multiple OS on one host |
+
+### Useful Commands
+```docker
+# list running containers
+docker ps
+
+# list all containers (running or stopped)
+docker ps -a
+
+# run a docker container from image with a name
+docker run --name my_container <image_name>
+
+# map ports using -p flag
+docker run --name my_container -p 8000:8000 <image_name>
+
+# run in inter
+docker run -it <image_name>
+
+# run container in interactive mode with shell or bash 
+docker run -it nginx sh
+docker run -it nginx /bin/bash
+
+# run container in detached mode use -d flag.
+docker run -itd --name mynginx nginx
+# reattach 
+docker attach mynginx  
+# inspect a running container
+docker exec -it mynginx /bin/bash
+
+# pause or unpause a container
+docker pause <container_name or id>
+docker unpause <container_name or id>
+
+# start or stop a container
+docker stop <container_name or id>
+docker start <container_name or id>
+docker restart <container_name or id>
+
+# remove a stopped contianer
+docker rm <container_name or id>
+
+# view container logs
+docker logs <container_name or id>
 ```
 
-#### Output
+---
 
-> Tiam, ad mint andaepu dandae nostion secatur sequo quae.  
-> **Note** that you can use _Markdown syntax_ within a blockquote.
+## Docker Volumes
 
-### Blockquote with attribution
+A **Docker volume** is a storage mechanism that allows data to persist beyond the lifecycle of a container. Useful for databases, logs, and persistent data.
 
-#### Syntax
+### Useful Commands
+```docker
+# create docker volume
+docker volume create <volume_name>
 
-```markdown
-> Don't communicate by sharing memory, share memory by communicating.<br>
-> — <cite>Rob Pike[^1]</cite>
+# list all volumes
+docker volume ls
+
+# inspect volumes for details
+docker volume inspect <volume_name>
+
+# remove docker volume
+docker volume rm <volume_name>
+
+# run a docker container with volume mounted
+docker run --name my_container -v volume_name:/app/data myimage:v1
+
+# copy file to container
+docker cp data.txt my_container:/app/data
+
+# this maps local directory to containers directory
+docker run -v /path/on/host:/app/data my_container
 ```
 
-#### Output
+---
 
-> Don't communicate by sharing memory, share memory by communicating.<br>
-> — <cite>Rob Pike[^1]</cite>
+## Docker Networking
 
-[^1]: The above quote is excerpted from Rob Pike's [talk](https://www.youtube.com/watch?v=PAAkCSZUG1c) during Gopherfest, November 18, 2015.
+Docker networking enables containers to communicate internally or with external systems.
 
-## Tables
+### Bridge Network
+Default, isolated, secure communication between containers.  
+Containers talk using **names** instead of IPs.  
 
-### Syntax
-
-```markdown
-| Italics   | Bold     | Code   |
-| --------- | -------- | ------ |
-| _italics_ | **bold** | `code` |
+```docker
+docker network create my_bridge
+docker run -d --name mysql --network my_bridge -e MYSQL_ROOT_PASSWORD=root mysql
+docker run -d --name nginx --network my_bridge -p 8080:80 nginx
 ```
 
-### Output
+### Host Network
+Direct access to host network (no port mapping needed).  
 
-| Italics   | Bold     | Code   |
-| --------- | -------- | ------ |
-| _italics_ | **bold** | `code` |
-
-## Code Blocks
-
-### Syntax
-
-we can use 3 backticks ``` in new line and write snippet and close with 3 backticks on new line and to highlight language specific syntax, write one word of language name after first 3 backticks, for eg. html, javascript, css, markdown, typescript, txt, bash
-
-````markdown
-```html
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Example HTML5 Document</title>
-  </head>
-  <body>
-    <p>Test</p>
-  </body>
-</html>
-```
-````
-
-### Output
-
-```html
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Example HTML5 Document</title>
-  </head>
-  <body>
-    <p>Test</p>
-  </body>
-</html>
+```docker
+docker run -d --network host nginx
 ```
 
-## List Types
+### Useful Commands
+```docker
+# port mapping when running a container
+docker run --name my_container -p 8080:80 myapp
 
-### Ordered List
+# list all networks
+docker network ls
 
-#### Syntax
+# inspect networks for details
+docker network inspect network_name
 
-```markdown
-1. First item
-2. Second item
-3. Third item
+# create docker network
+docker network create network_name
+
+# connect a container to a network
+docker network connect network_name container_name
+
+# disconnect a container to a network
+docker network disconnect network_name container_name
 ```
 
-#### Output
+---
 
-1. First item
-2. Second item
-3. Third item
+## Docker Compose
 
-### Unordered List
+**Docker Compose** simplifies multi-container applications using a `docker-compose.yml` file.
 
-#### Syntax
+### Example
+```yaml
+version: "3.9"
+services:
+  app:
+    image: node:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
 
-```markdown
-- List item
-- Another item
-- And another item
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mydb
 ```
 
-#### Output
+### Commands
+```docker
+# start services
+docker-compose up -d
 
-- List item
-- Another item
-- And another item
+# stop services
+docker-compose down
 
-### Nested list
+# view logs
+docker-compose logs -f
 
-#### Syntax
+# list running services
+docker-compose ps
 
-```markdown
-- Fruit
-  - Apple
-  - Orange
-  - Banana
-- Dairy
-  - Milk
-  - Cheese
+# restart particular service
+docker-compose restart app
+
+# running a command inside specific service
+docker-compose exec app ls
 ```
 
-#### Output
+### Benefits
+- **Easier multi-container management** (`docker-compose up` starts everything).
+- **Automatic networking** (containers can talk using service names).
+- **Scalability** (`docker-compose up --scale app=3` runs 3 instances).
 
-- Fruit
-  - Apple
-  - Orange
-  - Banana
-- Dairy
-  - Milk
-  - Cheese
+---
 
-## Other Elements — abbr, sub, sup, kbd, mark
+## Dockerfile Example
 
-### Syntax
-
-```markdown
-<abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format.
-
-H<sub>2</sub>O
-
-X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
-
-Press <kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>Delete</kbd> to end the session.
-
-Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures.
+```docker
+FROM node:latest
+WORKDIR /app
+COPY package.json .
+RUN npm install
+COPY . .
+CMD ["node", "server.js"]
 ```
 
-### Output
+---
 
-<abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format.
+## Best Practices
 
-H<sub>2</sub>O
+- ✅ Use **small base images** (Alpine, Distroless).  
+- ✅ Pin versions (`node:20-alpine`, not `latest`).  
+- ✅ Avoid root – use non-root users.  
+- ✅ Use **multi-stage builds**.  
+- ✅ Use `.dockerignore` to avoid unnecessary files.  
 
-X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
+---
 
-Press <kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>Delete</kbd> to end the session.
+Example of writing a dockerfile for a nodejs application using typescript.
 
-Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures.
+1. use a smaller base image(alpine based)
+2. use multi-stage build like like builder and runner where builder is responsible for building the application and runner just takes the compiled files to run the application and any unnecessary files and tools from builder are not included in the runner stage which make the image more efficient and lightweight.
+3. created a user and assigned just the requirements that are needed by the user.
 
 
-Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
+```docker
+# ===========================
+# 1st Stage: Build Stage
+# ===========================
+FROM node:20-alpine AS builder
 
-## Headings
+# Set working directory inside the container
+WORKDIR /app
 
-The following HTML `<h1>`—`<h6>` elements represent six levels of section headings. `<h1>` is the highest section level while `<h6>` is the lowest.
+# Copy package files and install dependencies
+COPY package.json package-lock.json ./
+RUN npm ci
 
-# H1
+# Copy TypeScript source files
+COPY tsconfig.json ./
+COPY src/ src/
 
-## H2
+# Compile TypeScript to JavaScript
+RUN npm run build
 
-### H3
+# ===========================
+# 2nd Stage: Production Image
+# ===========================
+FROM node:20-alpine AS runner
 
-#### H4
+# Set working directory
+WORKDIR /app
 
-##### H5
+# Create a non-root user
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
-###### H6
+# Copy only necessary files from the builder stage
+COPY --from=builder /app/dist /app/dist
+COPY --from=builder /app/package.json /app/package.json
+COPY --from=builder /app/node_modules /app/node_modules
 
-## Paragraph
+# Set correct permissions
+RUN chown -R appuser:appgroup /app
 
-Xerum, quo qui aut unt expliquam qui dolut labo. Aque venitatiusda cum, voluptionse latur sitiae dolessi aut parist aut dollo enim qui voluptate ma dolestendit peritin re plis aut quas inctum laceat est volestemque commosa as cus endigna tectur, offic to cor sequas etum rerum idem sintibus eiur? Quianimin porecus evelectur, cum que nis nust voloribus ratem aut omnimi, sitatur? Quiatem. Nam, omnis sum am facea corem alique molestrunt et eos evelece arcillit ut aut eos eos nus, sin conecerem erum fuga. Ri oditatquam, ad quibus unda veliamenimin cusam et facea ipsamus es exerum sitate dolores editium rerore eost, temped molorro ratiae volorro te reribus dolorer sperchicium faceata tiustia prat.
+# Switch to non-root user
+USER appuser
 
-Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sapicia is sinveli squiatum, core et que aut hariosam ex eat.
+# Expose application port
+EXPOSE 3000
 
-## Images
-
-### Syntax
-
-```markdown
-![Alt text](./full/or/relative/path/of/image)
+# Set the startup command
+CMD ["node", "dist/index.js"]
 ```
 
-## Blockquotes
+Example of writing a docker file for python application by following docker best practices
 
-The blockquote element represents content that is quoted from another source, optionally with a citation which must be within a `footer` or `cite` element, and optionally with in-line changes such as annotations and abbreviations.
+```docker
+# ===========================
+# 1st Stage: Build Stage
+# ===========================
+FROM python:3.11-slim AS builder
 
-### Blockquote without attribution
+WORKDIR /app
 
-#### Syntax
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-```markdown
-> Tiam, ad mint andaepu dandae nostion secatur sequo quae.  
-> **Note** that you can use _Markdown syntax_ within a blockquote.
+# Copy app source code
+COPY . .
+
+# ===========================
+# 2nd Stage: Production Image
+# ===========================
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Create a non-root user
+RUN groupadd -r appgroup && useradd -r -g appgroup appuser
+
+# Copy only necessary files from the builder stage
+COPY --from=builder /app /app
+
+# Set correct permissions
+RUN chown -R appuser:appgroup /app
+
+# Switch to non-root user
+USER appuser
+
+EXPOSE 8000
+
+CMD ["python", "app.py"]
 ```
 
-#### Output
+## Advanced Topics
 
-> Tiam, ad mint andaepu dandae nostion secatur sequo quae.  
-> **Note** that you can use _Markdown syntax_ within a blockquote.
+- If you want to learn about the internal workings of docker then you might have to explore about namespaces and cgroups which are linux kernel features that enable containerization by providing process isolation and resource control. Namespaces are said to limit what the containers can see and cgroups are said to limit how much resources a container can use. I found an interesting short article related to this topic which you might want to read.
 
-### Blockquote with attribution
+<a href="https://medium.com/@mrdevsecops/namespace-vs-cgroup-60c832c6b8c8" target="_blank">📖[Docker Namespace vs Cgroup]</a>
 
-#### Syntax
+- There are also some alternatives to docker like podman, containerd, linux containers(LXC). Apart from docker I have used podman which is an opensource alternative of docker maintained by redhat engineers and the opensource community. Unlike docker, podman follows a deamonless architecture which can reduce attack surface.
 
-```markdown
-> Don't communicate by sharing memory, share memory by communicating.<br>
-> — <cite>Rob Pike[^1]</cite>
-```
+#### Key Features of Podman
+- Runs containers without root privileges*, reducing security risks.
+- Unlike Docker, Podman does not rely on a long-running background service (`dockerd`) instead containers are managed as individual processes.
+- Most of Docker commands are compatible with podman just by replacing docker with podman in the commands.
 
-#### Output
 
-> Don't communicate by sharing memory, share memory by communicating.<br>
-> — <cite>Rob Pike[^1]</cite>
 
-[^1]: The above quote is excerpted from Rob Pike's [talk](https://www.youtube.com/watch?v=PAAkCSZUG1c) during Gopherfest, November 18, 2015.
+### Docker vs Podman
 
-## Tables
+| Feature | **Podman** | **Docker** |
+|---------|------------|------------|
+| Rootless | ✅ Yes | ❌ Extra setup |
+| Daemon | ❌ None | ✅ `dockerd` |
+| Security | ✅ More secure | ❌ Requires root |
+| Compatibility | ✅ OCI images | ✅ OCI images |
 
-### Syntax
 
-```markdown
-| Italics   | Bold     | Code   |
-| --------- | -------- | ------ |
-| _italics_ | **bold** | `code` |
-```
-
-### Output
-
-| Italics   | Bold     | Code   |
-| --------- | -------- | ------ |
-| _italics_ | **bold** | `code` |
-
-## Code Blocks
-
-### Syntax
-
-we can use 3 backticks ``` in new line and write snippet and close with 3 backticks on new line and to highlight language specific syntax, write one word of language name after first 3 backticks, for eg. html, javascript, css, markdown, typescript, txt, bash
-
-````markdown
-```html
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Example HTML5 Document</title>
-  </head>
-  <body>
-    <p>Test</p>
-  </body>
-</html>
-```
-````
-
-### Output
-
-```html
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Example HTML5 Document</title>
-  </head>
-  <body>
-    <p>Test</p>
-  </body>
-</html>
-```
-
-## List Types
-
-### Ordered List
-
-#### Syntax
-
-```markdown
-1. First item
-2. Second item
-3. Third item
-```
-
-#### Output
-
-1. First item
-2. Second item
-3. Third item
-
-### Unordered List
-
-#### Syntax
-
-```markdown
-- List item
-- Another item
-- And another item
-```
-
-#### Output
-
-- List item
-- Another item
-- And another item
-
-### Nested list
-
-#### Syntax
-
-```markdown
-- Fruit
-  - Apple
-  - Orange
-  - Banana
-- Dairy
-  - Milk
-  - Cheese
-```
-
-#### Output
-
-- Fruit
-  - Apple
-  - Orange
-  - Banana
-- Dairy
-  - Milk
-  - Cheese
-
-## Other Elements — abbr, sub, sup, kbd, mark
-
-### Syntax
-
-```markdown
-<abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format.
-
-H<sub>2</sub>O
-
-X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
-
-Press <kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>Delete</kbd> to end the session.
-
-Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures.
-```
-
-### Output
-
-<abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format.
-
-H<sub>2</sub>O
-
-X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
-
-Press <kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>Delete</kbd> to end the session.
-
-Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures.
+🐳 Thats it! Thats all about docker. This is all you need to get started.

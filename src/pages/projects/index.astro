@@ -4,10 +4,10 @@ import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import PostsByYear from '../../components/PostByYear.astro';
 
-type BlogPost = CollectionEntry<'posts'>;
+type Projects = CollectionEntry<'projects'>;
 
-const posts = (await getCollection('posts')).sort(
-	(a: BlogPost, b: BlogPost) => b.data.date.valueOf() - a.data.date.valueOf()
+const posts = (await getCollection('projects')).sort(
+	(a: Projects, b: Projects) => b.data.date.valueOf() - a.data.date.valueOf()
 );
 ---
 

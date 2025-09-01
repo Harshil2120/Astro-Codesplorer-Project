@@ -39,9 +39,9 @@ const { title, description = 'Hello there', image = './images/band.jpg', url = A
 		<ViewTransitions />
 	</head>
 
-	<body class='bg-zinc-200 dark:bg-black px-2'>
+	<body class='bg-zinc-200 dark:bg-black'>
 		<NavBar />
-		<div class='pt-20 space-y-4'>
+		<div class='pt-20 space-y-4 px-1'>
 			<slot />
 			<Footer />
 			<ScrollToTopButton client:load />
