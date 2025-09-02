@@ -11,42 +11,55 @@ import '../styles/grid.css';
 type BlogPost = CollectionEntry<'posts'>;
 type ProjectDetail = CollectionEntry<'projects'>;
 
-const posts = (await getCollection('posts')).sort((a: BlogPost, b: BlogPost) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 4);
+const posts = (await getCollection('posts'))
+	.sort((a: BlogPost, b: BlogPost) => b.data.date.valueOf() - a.data.date.valueOf())
+	.slice(0, 4);
 const projects = (await getCollection('projects')).slice(0, 2);
 ---
 
-<Layout title='Welcome to Astro.'>
+<Layout title="Welcome to Astro.">
 	<div
-		class='max-w-5xl dark:bg-zinc-700/40 bg-zinc-100/85 rounded-lg border-[1px] dark:border-zinc-500 border-zinc-400 text-zinc-900 dark:text-white flex flex-col-reverse md:flex-row justify-between mx-auto p-4 sm:p-8 sm:px-24 light-grid dark-grid'
+		class="max-w-5xl dark:bg-zinc-700/40 bg-zinc-100/85 rounded-lg border-[1px] dark:border-zinc-500 border-zinc-400 text-zinc-900 dark:text-white flex flex-col-reverse md:flex-row justify-between mx-auto p-4 sm:p-8 sm:px-24 light-grid dark-grid"
 	>
-		<div class='flex flex-col justify-center space-y-2 max-w-xl'>
-			<h1 class='text-2xl sm:text-3xl md:text-4xl font-mono font-semibold'>Explore.Learn.Build</h1>
-			<h1 class='font-mono text-sm sm:text-lg'>
-				Learn about different technologies, tools, and frameworks through insightful blogs and projects.
+		<div class="flex flex-col justify-center space-y-2 max-w-xl">
+			<h1 class="text-2xl sm:text-3xl md:text-4xl font-mono font-semibold">Explore.Learn.Build</h1>
+			<h1 class="font-mono text-sm sm:text-lg">
+				Learn about different technologies, tools, and frameworks through insightful blogs and
+				projects.
 			</h1>
-			<div class='flex items-center space-x-2'>
-				<h1 class='font-mono text-sm sm:text-lg'>Built using:</h1>
-				<div
-					class='w-fit border-[1px] border-zinc-500 rounded-2xl flex justify-center items-center space-x-2 dark:bg-zinc-900 bg-zinc-100/85 p-[6px] px-4'
+			<div class="flex items-center space-x-2">
+				<h1 class="font-mono text-sm sm:text-lg">Built using:</h1>
+
+				<a
+					href="https://astro.build/"
+					target="_blank"
+					class="relative p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-xl"
 				>
-					<h1 class='font-mono font-semibold text-sm sm:text-lg'>Astro</h1>
-					<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 128 128'
-						><path
-							fill='currentColor'
-							d='M81.504 9.465c.973 1.207 1.469 2.836 2.457 6.09l21.656 71.136a90 90 0 0 0-25.89-8.765L65.629 30.28a1.833 1.833 0 0 0-3.52.004L48.18 77.902a90.1 90.1 0 0 0-26.003 8.778l21.758-71.14c.996-3.25 1.492-4.876 2.464-6.083a8 8 0 0 1 3.243-2.398c1.433-.575 3.136-.575 6.535-.575H71.72c3.402 0 5.105 0 6.543.579a8 8 0 0 1 3.242 2.402Zm2.59 80.61c-3.57 3.054-10.696 5.136-18.903 5.136c-10.07 0-18.515-3.137-20.754-7.356c-.8 2.418-.98 5.184-.98 6.954c0 0-.527 8.675 5.508 14.71a5.67 5.67 0 0 1 5.672-5.671c5.37 0 5.367 4.683 5.363 8.488v.336c0 5.773 3.527 10.719 8.543 12.805a11.6 11.6 0 0 1-1.172-5.098c0-5.508 3.23-7.555 6.988-9.938c2.989-1.894 6.309-4 8.594-8.222a15.5 15.5 0 0 0 1.875-7.41a15.6 15.6 0 0 0-.734-4.735Zm0 0'
-						></path></svg
+					<span
+						class="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"
+					></span>
+					<span
+						class="relative flex px-3 py-1 transition-all ease-out bg-zinc-800 rounded-xl group-hover:bg-opacity-0 duration-400"
 					>
-				</div>
+						<h1 class="font-mono font-semibold text-sm sm:text-lg">Astro</h1>
+						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 128 128"
+							><path
+								fill="currentColor"
+								d="M81.504 9.465c.973 1.207 1.469 2.836 2.457 6.09l21.656 71.136a90 90 0 0 0-25.89-8.765L65.629 30.28a1.833 1.833 0 0 0-3.52.004L48.18 77.902a90.1 90.1 0 0 0-26.003 8.778l21.758-71.14c.996-3.25 1.492-4.876 2.464-6.083a8 8 0 0 1 3.243-2.398c1.433-.575 3.136-.575 6.535-.575H71.72c3.402 0 5.105 0 6.543.579a8 8 0 0 1 3.242 2.402Zm2.59 80.61c-3.57 3.054-10.696 5.136-18.903 5.136c-10.07 0-18.515-3.137-20.754-7.356c-.8 2.418-.98 5.184-.98 6.954c0 0-.527 8.675 5.508 14.71a5.67 5.67 0 0 1 5.672-5.671c5.37 0 5.367 4.683 5.363 8.488v.336c0 5.773 3.527 10.719 8.543 12.805a11.6 11.6 0 0 1-1.172-5.098c0-5.508 3.23-7.555 6.988-9.938c2.989-1.894 6.309-4 8.594-8.222a15.5 15.5 0 0 0 1.875-7.41a15.6 15.6 0 0 0-.734-4.735Zm0 0"
+							></path></svg
+						>
+					</span>
+				</a>
 			</div>
 		</div>
 		<svg
-			width='200'
-			height='200'
-			viewBox='0 0 4619 4886'
-			stroke='currentColor'
-			class='lucide lucide-rocket sm:block hidden dark:text-zinc-100 mt-6 md:mt-0'
-			fill='none'
-			xmlns='http://www.w3.org/2000/svg'
+			width="200"
+			height="200"
+			viewBox="0 0 4619 4886"
+			stroke="currentColor"
+			class="lucide lucide-rocket sm:block hidden dark:text-zinc-100 mt-6 md:mt-0"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
 		>
 			<style>
 				@keyframes float {
@@ -73,111 +86,135 @@ const projects = (await getCollection('projects')).slice(0, 2);
 			</style>
 
 			<path
-				id='path1'
-				d='M1634.25 3172.25C1798.83 3334.75 1800.92 3603.5 1653 3778.5C1390.5 4091 611.333 4195.16 611.333 4195.16C611.333 4195.16 715.5 3416 1028 3153.5C1205.26 3004.12 1466.56 3012.2 1634.25 3172.25Z'
-				stroke='currentColor'
-				stroke-width='300'
-				stroke-linecap='round'
-				stroke-linejoin='round'></path>
+				id="path1"
+				d="M1634.25 3172.25C1798.83 3334.75 1800.92 3603.5 1653 3778.5C1390.5 4091 611.333 4195.16 611.333 4195.16C611.333 4195.16 715.5 3416 1028 3153.5C1205.26 3004.12 1466.56 3012.2 1634.25 3172.25Z"
+				stroke="currentColor"
+				stroke-width="300"
+				stroke-linecap="round"
+				stroke-linejoin="round"></path>
 			<path
-				id='path2'
-				d='M1157.02 4576.83C1194.67 4618 1195.14 4686.09 1161.31 4730.43C1101.25 4809.61 923 4836 923 4836C923 4836 946.831 4638.59 1018.32 4572.08C1058.87 4534.23 1118.65 4536.28 1157.02 4576.83Z'
-				stroke='currentColor'
-				stroke-width='100'
-				stroke-linecap='round'
-				stroke-linejoin='round'></path>
+				id="path2"
+				d="M1157.02 4576.83C1194.67 4618 1195.14 4686.09 1161.31 4730.43C1101.25 4809.61 923 4836 923 4836C923 4836 946.831 4638.59 1018.32 4572.08C1058.87 4534.23 1118.65 4536.28 1157.02 4576.83Z"
+				stroke="currentColor"
+				stroke-width="100"
+				stroke-linecap="round"
+				stroke-linejoin="round"></path>
 			<path
-				id='path3'
-				d='M284.016 3506.83C321.668 3548 322.145 3616.09 288.306 3660.43C228.253 3739.61 50 3766 50 3766C50 3766 73.8306 3568.59 145.322 3502.08C185.874 3464.23 245.654 3466.28 284.016 3506.83Z'
-				stroke='currentColor'
-				stroke-width='100'
-				stroke-linecap='round'
-				stroke-linejoin='round'></path>
+				id="path3"
+				d="M284.016 3506.83C321.668 3548 322.145 3616.09 288.306 3660.43C228.253 3739.61 50 3766 50 3766C50 3766 73.8306 3568.59 145.322 3502.08C185.874 3464.23 245.654 3466.28 284.016 3506.83Z"
+				stroke="currentColor"
+				stroke-width="100"
+				stroke-linecap="round"
+				stroke-linejoin="round"></path>
 			<path
-				id='path4'
-				d='M2289.17 3176.39L1664.17 2551.39C1775.03 2263.77 1914.63 1988.07 2080.83 1728.47C2574.41 939.293 3441.7 462.278 4372.5 468.052C4372.5 1034.72 4210 2030.55 3122.5 2759.72C2859.35 2926.12 2580.18 3065.71 2289.17 3176.39Z'
-				stroke='currentColor'
-				stroke-width='300'
-				stroke-linecap='round'
-				stroke-linejoin='round'></path>
+				id="path4"
+				d="M2289.17 3176.39L1664.17 2551.39C1775.03 2263.77 1914.63 1988.07 2080.83 1728.47C2574.41 939.293 3441.7 462.278 4372.5 468.052C4372.5 1034.72 4210 2030.55 3122.5 2759.72C2859.35 2926.12 2580.18 3065.71 2289.17 3176.39Z"
+				stroke="currentColor"
+				stroke-width="300"
+				stroke-linecap="round"
+				stroke-linejoin="round"></path>
 			<path
-				id='path5'
-				d='M1664.17 2551.39H622.5C622.5 2551.39 737.083 1920.14 1039.17 1718.05C1376.67 1493.05 2080.83 1718.05 2080.83 1718.05'
-				stroke='currentColor'
-				stroke-width='300'
-				stroke-linecap='round'
-				stroke-linejoin='round'></path>
+				id="path5"
+				d="M1664.17 2551.39H622.5C622.5 2551.39 737.083 1920.14 1039.17 1718.05C1376.67 1493.05 2080.83 1718.05 2080.83 1718.05"
+				stroke="currentColor"
+				stroke-width="300"
+				stroke-linecap="round"
+				stroke-linejoin="round"></path>
 			<path
-				id='path6'
-				d='M2289.17 3176.39V4218.05C2289.17 4218.05 2920.42 4103.47 3122.5 3801.39C3347.5 3463.89 3122.5 2759.72 3122.5 2759.72'
-				stroke='currentColor'
-				stroke-width='300'
-				stroke-linecap='round'
-				stroke-linejoin='round'></path>
-			<line x1='3882.93' y1='2802.84' x2='4599.93' y2='1956.84' stroke='currentColor' stroke-width='50'></line>
-			<line x1='1166.93' y1='1297.84' x2='1883.93' y2='451.836' stroke='currentColor' stroke-width='50'></line>
-			<line x1='2195.52' y1='863.16' x2='2966.52' y2='17.1604' stroke='currentColor' stroke-width='50'></line>
-			<line x1='3635.93' y1='3749.84' x2='4352.93' y2='2903.84' stroke='currentColor' stroke-width='50'></line>
+				id="path6"
+				d="M2289.17 3176.39V4218.05C2289.17 4218.05 2920.42 4103.47 3122.5 3801.39C3347.5 3463.89 3122.5 2759.72 3122.5 2759.72"
+				stroke="currentColor"
+				stroke-width="300"
+				stroke-linecap="round"
+				stroke-linejoin="round"></path>
+			<line
+				x1="3882.93"
+				y1="2802.84"
+				x2="4599.93"
+				y2="1956.84"
+				stroke="currentColor"
+				stroke-width="50"></line>
+			<line
+				x1="1166.93"
+				y1="1297.84"
+				x2="1883.93"
+				y2="451.836"
+				stroke="currentColor"
+				stroke-width="50"></line>
+			<line
+				x1="2195.52"
+				y1="863.16"
+				x2="2966.52"
+				y2="17.1604"
+				stroke="currentColor"
+				stroke-width="50"></line>
+			<line
+				x1="3635.93"
+				y1="3749.84"
+				x2="4352.93"
+				y2="2903.84"
+				stroke="currentColor"
+				stroke-width="50"></line>
 		</svg>
 	</div>
 
 	<div
-		class='max-w-5xl dark:bg-zinc-700/40 bg-zinc-100/55 rounded-lg border-[1px] border-zinc-400 text-zinc-900 dark:text-white bg-white mx-auto px-4 py-2 relative'
+		class="max-w-5xl dark:bg-zinc-700/40 bg-zinc-100/55 rounded-lg border-[1px] border-zinc-400 text-zinc-900 dark:text-white bg-white mx-auto px-4 py-2 relative"
 	>
-		<div class='flex justify-between gap-2 py-2'>
-			<h2 class='font-mono pt-3 rounded-md text-sm sm:text-lg'>Featured Blogs</h2>
+		<div class="flex justify-between gap-2 py-2">
+			<h2 class="font-mono pt-3 rounded-md text-sm sm:text-lg">Featured Blogs</h2>
 			<a
-				href='/blogs/'
-				class='font-mono group relative flex flex-nowrap rounded-lg bg-zinc-100/95 dark:bg-zinc-900/75 border border-zinc-400 px-3 py-2 pr-10 text-sm sm:text-md'
+				href="/blogs/"
+				class="font-mono group relative flex flex-nowrap rounded-lg bg-zinc-100/95 dark:bg-zinc-900/75 border border-zinc-400 px-3 py-2 pr-10 text-sm sm:text-md"
 				>All blogs
 				<svg
-					xmlns='http://www.w3.org/2000/svg'
-					viewBox='0 0 24 24'
-					class='absolute right-2 top-1/2 size-5 -translate-y-1/2 fill-none stroke-current stroke-2'
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					class="absolute right-2 top-1/2 size-5 -translate-y-1/2 fill-none stroke-current stroke-2"
 				>
 					<line
-						x1='5'
-						y1='12'
-						x2='19'
-						y2='12'
-						class='translate-x-3 scale-x-0 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-hover:scale-x-100 group-focus-visible:translate-x-0 group-focus-visible:scale-x-100'
+						x1="5"
+						y1="12"
+						x2="19"
+						y2="12"
+						class="translate-x-3 scale-x-0 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-hover:scale-x-100 group-focus-visible:translate-x-0 group-focus-visible:scale-x-100"
 					></line>
 					<polyline
-						points='12 5 19 12 12 19'
-						class='-translate-x-1 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-focus-visible:translate-x-0'
+						points="12 5 19 12 12 19"
+						class="-translate-x-1 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-focus-visible:translate-x-0"
 					></polyline>
 				</svg>
 			</a>
 		</div>
-		<div class='grid grid-cols-1 md:grid-cols-2 gap-4 py-2'>
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-4 py-2">
 			{posts.map((post: BlogPost) => <Post post={post} />)}
 		</div>
-		<div class='flex justify-between gap-2 py-2'>
-			<h2 class='font-mono text-sm sm:text-lg pt-3 rounded-md'>Featured Projects</h2>
+		<div class="flex justify-between gap-2 py-2">
+			<h2 class="font-mono text-sm sm:text-lg pt-3 rounded-md">Featured Projects</h2>
 			<a
-				href='/projects/'
-				class='font-mono group relative flex flex-nowrap rounded-lg bg-zinc-100/95 dark:bg-zinc-900/75 border border-zinc-400 px-3 py-2 pr-10 text-sm sm:text-md'
+				href="/projects/"
+				class="font-mono group relative flex flex-nowrap rounded-lg bg-zinc-100/95 dark:bg-zinc-900/75 border border-zinc-400 px-3 py-2 pr-10 text-sm sm:text-md"
 				>All Projects
 				<svg
-					xmlns='http://www.w3.org/2000/svg'
-					viewBox='0 0 24 24'
-					class='absolute right-2 top-1/2 size-5 -translate-y-1/2 fill-none stroke-current stroke-2'
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					class="absolute right-2 top-1/2 size-5 -translate-y-1/2 fill-none stroke-current stroke-2"
 				>
 					<line
-						x1='5'
-						y1='12'
-						x2='19'
-						y2='12'
-						class='translate-x-3 scale-x-0 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-hover:scale-x-100 group-focus-visible:translate-x-0 group-focus-visible:scale-x-100'
+						x1="5"
+						y1="12"
+						x2="19"
+						y2="12"
+						class="translate-x-3 scale-x-0 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-hover:scale-x-100 group-focus-visible:translate-x-0 group-focus-visible:scale-x-100"
 					></line>
 					<polyline
-						points='12 5 19 12 12 19'
-						class='-translate-x-1 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-focus-visible:translate-x-0'
+						points="12 5 19 12 12 19"
+						class="-translate-x-1 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-focus-visible:translate-x-0"
 					></polyline>
 				</svg>
 			</a>
 		</div>
-		<div class='grid grid-cols-1 md:grid-cols-2 gap-4 py-2'>
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-4 py-2">
 			{projects.map((project: ProjectDetail) => <Project project={project} />)}
 		</div>
 	</div>

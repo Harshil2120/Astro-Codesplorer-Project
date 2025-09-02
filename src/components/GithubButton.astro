@@ -2,32 +2,35 @@
 import GithubIcon from './GithubIcon.astro';
 ---
 
-<button
-	class='text-md group flex items-center justify-center rounded-xl text-gray-800 dark:text-white bg-zinc-100/85 dark:bg-zinc-900/75 px-4 hover:cursor-pointer border border-zinc-400 dark:border-zinc-500'
+<a
+	href="https://github.com/Harshil2120/Astro-Codesplorer-Project"
+	target="_blank"
+	rel="noopener noreferrer"
+	class="text-md group flex items-center justify-center rounded-xl text-gray-800 dark:text-white bg-zinc-100/85 dark:bg-zinc-900/75 px-4 hover:cursor-pointer border border-zinc-400 dark:border-zinc-500"
 >
-	<div class='hidden md:block'>
-		<div class='flex gap-2'>
+	<div class="hidden md:block">
+		<div class="flex gap-2">
 			<GithubIcon />
-			<span class='font-mono'>GitHub</span>
+			<span class="font-mono">GitHub</span>
 
 			<svg
-				xmlns='http://www.w3.org/2000/svg'
-				width='20'
-				height='20'
-				viewBox='0 0 20 20'
-				fill='none'
-				stroke='currentColor'
-				stroke-width='1.5'
-				stroke-linecap='round'
-				stroke-linejoin='round'
-				class='lucide lucide-arrow-up-right opacity-75 transition-all group-hover:-translate-y-[1px] group-hover:translate-x-[1px] group-hover:scale-110 group-hover:opacity-90'
+				xmlns="http://www.w3.org/2000/svg"
+				width="20"
+				height="20"
+				viewBox="0 0 20 20"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="1.5"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				class="lucide lucide-arrow-up-right opacity-75 transition-all group-hover:-translate-y-[1px] group-hover:translate-x-[1px] group-hover:scale-110 group-hover:opacity-90"
 			>
-				<path d='M7 7h10v10'></path>
-				<path d='M7 17 17 7'></path>
+				<path d="M7 7h10v10"></path>
+				<path d="M7 17 17 7"></path>
 			</svg>
 		</div>
 	</div>
-	<div class='block md:hidden'>
+	<div class="block md:hidden">
 		<GithubIcon />
 	</div>
-</button>
+</a>
