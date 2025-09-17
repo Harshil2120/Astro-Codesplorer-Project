@@ -2,12 +2,12 @@
 
 export const SITE_CONFIG = {
 	name: 'CodeSplorer Blog',
-	description: 'A personal blog about software development, technology, and coding insights',
+	description: 'A personal blog about software development, technology, and coding insights by Harshil Donga',
 	url: 'https://codesplorer-blog.com', // Update with your actual domain
-	author: 'Your Name', // Update with your name
-	email: 'your.email@example.com', // Update with your email
-	github: 'https://github.com/yourusername', // Update with your GitHub
-	linkedin: 'https://linkedin.com/in/yourusername', // Update with your LinkedIn
+	author: 'Harshil Donga',
+	email: 'harshildonga9@gmail.com',
+	github: 'https://github.com/srleom', // Update with your GitHub
+	linkedin: 'https://www.linkedin.com/in/harshil-donga/',
 	twitter: 'https://twitter.com/yourusername', // Update with your Twitter
 } as const;
 

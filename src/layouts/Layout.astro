@@ -2,6 +2,8 @@
 import NavBar from '../components/NavBar.astro';
 import Footer from '../components/Footer.astro';
 import ScrollToTopButton from '../components/ScrollToTopButton';
+import { SITE_CONFIG } from '../constants/site';
+
 interface Props {
 	title: string;
 	description?: string;
@@ -9,39 +11,49 @@ interface Props {
 	url?: string;
 }
 import { ViewTransitions } from 'astro:transitions';
-const { title, description = 'Hello there', image = './images/band.jpg', url = Astro.url.href } = Astro.props;
+const {
+	title,
+	description = SITE_CONFIG.description,
+	image = '/src/assets/astro_icon.png',
+	url = Astro.url.href,
+} = Astro.props;
 ---
 
 <!doctype html>
-<html lang='en'>
+<html lang="en">
 	<head>
-		<meta charset='UTF-8' />
-		<meta name='description' content={description} />
-		<meta name='viewport' content='width=device-width' />
-		<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
-		<meta name='generator' content={Astro.generator} />
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="apple-touch-icon" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="author" content={SITE_CONFIG.author} />
+		<meta name="theme-color" content="#3b82f6" />
 
 		<!-- Open Graph / Facebook -->
-		<meta property='og:type' content='article' />
-		<meta property='og:url' content={url} />
-		<meta property='og:title' content={title} />
-		<meta property='og:description' content={description} />
-		<meta property='og:image' content={new URL(image, Astro.url).href} />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={url} />
+		<meta property="og:title" content={`${title} | ${SITE_CONFIG.name}`} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={new URL(image, Astro.url).href} />
+		<meta property="og:site_name" content={SITE_CONFIG.name} />
 
 		<!-- Twitter -->
-		<meta name='twitter:card' content='summary_large_image' />
-		<meta name='twitter:url' content={url} />
-		<meta name='twitter:title' content={title} />
-		<meta name='twitter:description' content={description} />
-		<meta name='twitter:image' content={new URL(image, Astro.url).href} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:url" content={url} />
+		<meta name="twitter:title" content={`${title} | ${SITE_CONFIG.name}`} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={new URL(image, Astro.url).href} />
+		<meta name="twitter:creator" content={SITE_CONFIG.twitter} />
 
-		<title>{title}</title>
+		<title>{title} | {SITE_CONFIG.name}</title>
 		<ViewTransitions />
 	</head>
 
-	<body class='bg-zinc-200 dark:bg-black'>
+	<body class="bg-zinc-200 dark:bg-black">
 		<NavBar />
-		<div class='pt-20 space-y-4 px-1'>
+		<div class="pt-20 space-y-4 px-1">
 			<slot />
 			<Footer />
 			<ScrollToTopButton client:load />
